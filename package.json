@@ -1,0 +1,78 @@
+{
+  "name": "native-proxy-agent",
+  "version": "2.5.0",
+  "description": "A native proxy agent that uses the native nodejs http.Agent and https.Agent to proxy the requests, no dependencies",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "tsc --build tsconfig.build.json --clean",
+    "test": "jest",
+    "release": "standard-version",
+    "lint": "eslint --ext .ts src",
+    "cm": "git-cz",
+    "prebuild": "npm run clean",
+    "pretest": "npm run lint",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "registry": "https://axags.jfrog.io/axags/api/npm/lib-amf-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.axa.com/Digital/native-proxy-agent.git"
+  },
+  "keywords": [
+    "agent",
+    "proxy",
+    "keep-alive",
+    "http-proxy",
+    "https-proxy",
+    "axa"
+  ],
+  "author": "AXA GO Digital",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "8.3.4",
+    "@types/jest": "24.0.25",
+    "@types/node": "13.1.5",
+    "@typescript-eslint/eslint-plugin": "2.15.0",
+    "@typescript-eslint/parser": "2.15.0",
+    "commitizen": "4.0.3",
+    "commitlint": "8.3.4",
+    "cz-conventional-changelog": "3.0.2",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-typescript": "6.3.1",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-import-resolver-typescript": "2.0.0",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-jest": "23.3.0",
+    "eslint-plugin-json": "2.0.1",
+    "eslint-plugin-prettier": "3.1.2",
+    "got": "10.2.2",
+    "husky": "4.0.3",
+    "jest": "24.9.0",
+    "nock": "11.7.2",
+    "prettier": "1.19.1",
+    "rimraf": "3.0.0",
+    "standard-version": "7.0.1",
+    "ts-jest": "24.3.0",
+    "typescript": "3.7.4"
+  },
+  "dependencies": {
+    "hyperid": "2.0.2",
+    "node-object-hash": "1.4.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
