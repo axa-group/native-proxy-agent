@@ -1,0 +1,84 @@
+{
+  "name": "@axa/native-proxy-agent",
+  "version": "1.0.0",
+  "description": "A native proxy agent that uses the native nodejs http.Agent and https.Agent to proxy the requests, no dependencies",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "tsc --build tsconfig.build.json --clean",
+    "test": "jest",
+    "release": "standard-version",
+    "lint": "eslint --ext .ts src",
+    "cm": "git-cz",
+    "prebuild": "npm run clean",
+    "pretest": "npm run lint",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axa-group/native-proxy-agent.git"
+  },
+  "keywords": [
+    "agent",
+    "proxy",
+    "keep-alive",
+    "http-proxy",
+    "https-proxy",
+    "AXA"
+  ],
+  "author": "AXA GO Digital",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^17.0.2",
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "commitizen": "^4.2.4",
+    "commitlint": "^17.0.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "got": "^11.8.5",
+    "husky": "^8.0.1",
+    "jest": "^28.1.1",
+    "nock": "^13.2.7",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "standard-version": "^9.5.0",
+    "ts-jest": "^28.0.5",
+    "typescript": "4.7.x"
+  },
+  "dependencies": {
+    "hyperid": "^3.0.1",
+    "node-object-hash": "^2.3.10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "overrides": {
+    "minimist": "1.2.6"
+  }
+}
