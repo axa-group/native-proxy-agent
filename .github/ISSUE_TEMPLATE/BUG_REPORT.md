@@ -19,7 +19,7 @@ If applicable, add screenshots to help explain your problem.
 ### Desktop (please complete the following information):\*\*
 
 - OS: [e.g. Linux, MacOSX, Windows 10]
-- fp-toolbox version [e.g. v1.0.0]
+- native-proxy-agent version [e.g. v1.0.0]
 - Node.js version [e.g. v12.14.1]
 
 ### Additional context
