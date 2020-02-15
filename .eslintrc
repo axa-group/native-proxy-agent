@@ -3,7 +3,8 @@
   "extends": ["plugin:jest/recommended", "airbnb-typescript/base", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2019,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "tsconfig.json"
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "jest", "prettier"],
   "rules": {
