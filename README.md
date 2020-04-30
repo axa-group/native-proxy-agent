@@ -28,7 +28,9 @@ const { createHttpAgent } = require('native-proxy-agent');
 const got = require('got');
 
 got('http://requestUrl.com/service/1', {
-  agent: createHttpAgent()
+  agent: {
+    http: createHttpAgent()
+  }
 });
 ```
 
@@ -37,7 +39,9 @@ const { createHttpsAgent } = require('native-proxy-agent');
 const got = require('got');
 
 got('http://requestUrl.com/service/1', {
-  agent: createHttpsAgent()
+  agent: {
+    https: createHttpsAgent()
+  }
 });
 ```
 
@@ -48,12 +52,16 @@ const { createForeverAgent } = require('native-proxy-agent');
 const got = require('got');
 
 got('http://requestUrl.com/service/1', {
-  agent: createForeverAgent('http://requestUrl.com/service/1')
+  agent: {
+    https: createForeverAgent('http://requestUrl.com/service/1')
+  }
 });
 
 // Target with same protocol and agent options will share same agent
 got('http://requestUrl.com/another-service', {
-  agent: createForeverAgent('http://requestUrl.com/another-service')
+  agent: {
+    http: createForeverAgent('http://requestUrl.com/another-service')
+  }
 });
 ```
 
