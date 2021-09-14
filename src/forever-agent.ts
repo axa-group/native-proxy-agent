@@ -19,7 +19,7 @@ import { HttpsAgent } from './https-agent';
 import { NativeAgentOptions, NativeHttpAgentOptions, NativeHttpsAgentOptions } from './types';
 import { getProxy } from './utils';
 
-const hashIt = nodeHash().hash;
+const hashIt = nodeHash();
 const agentStorage = new Map();
 
 /**
@@ -56,7 +56,7 @@ export function createForeverAgent(
     }
   }
 
-  const key = hashIt({ protocol: url.protocol, ...options });
+  const key = hashIt.hash({ protocol: url.protocol, ...options });
   if (agentStorage.has(key)) {
     return agentStorage.get(key);
   }
@@ -99,7 +99,7 @@ export function createHttpForeverAgent(options: Omit<NativeHttpAgentOptions, 'ke
     }
   }
 
-  const key = hashIt({ protocol: 'http', ...options });
+  const key = hashIt.hash({ protocol: 'http', ...options });
   if (agentStorage.has(key)) {
     return agentStorage.get(key);
   }
@@ -133,7 +133,7 @@ export function createHttpsForeverAgent(options: Omit<NativeHttpsAgentOptions, '
     }
   }
 
-  const key = hashIt({ protocol: 'https', ...options });
+  const key = hashIt.hash({ protocol: 'https', ...options });
   if (agentStorage.has(key)) {
     return agentStorage.get(key);
   }

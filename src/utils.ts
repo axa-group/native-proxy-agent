@@ -33,7 +33,6 @@ function getProxy(): { host: string; port: string; protocol: string } | undefine
 function requestShouldUseProxy(options: NativeRequestOptions): Boolean {
   const hasProxy = !!options.agent.options.proxy;
   const exceptions = process.env.no_proxy || process.env.NO_PROXY || '';
-
   const hasExceptions = !!exceptions;
 
   if (!hasProxy) {

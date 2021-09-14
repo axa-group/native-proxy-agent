@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Agent } from 'http';
 import got from 'got';
 import nock from 'nock';
 import {
@@ -24,9 +23,10 @@ import {
   createHttpsForeverAgent,
   NativeHttpsAgentOptions
 } from '../index';
+import { HttpsAgent } from '../https-agent';
 
-describe('Agent test', () => {
-  describe('Proxy env variables', () => {
+describe('agent test', () => {
+  describe('proxy env variables', () => {
     beforeEach(() => {
       process.env.http_proxy = '';
       process.env.https_proxy = '';
@@ -37,28 +37,29 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should support the http_proxy variable', async () => {
+    it('should support the http_proxy variable', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
 
       const url = 'http://axa.com/v1/cats';
       const agent = createAgent(url);
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
 
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
 
-    test('should support the HTTP_PROXY variable', async () => {
+    it('should support the HTTP_PROXY variable', async () => {
       const host = '192.168.1.6';
       const port = '3128';
       process.env.HTTP_PROXY = `http://${host}:${port}`;
@@ -66,39 +67,41 @@ describe('Agent test', () => {
       const url = 'http://axa.com/v1/cats';
       const agent = createAgent(url);
 
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
 
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
 
-    test('should support not using proxy', async () => {
+    it('should support not using proxy', async () => {
       const host = 'axa.com';
 
       const url = `http://${host}/v1/cats`;
       const agent = createAgent(url);
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy).toBeUndefined();
+      expect(result.request.options.agent.http.options.proxy).toBeUndefined();
     });
 
-    test('should support the http_proxy with authentication', async () => {
+    it('should support the http_proxy with authentication', async () => {
       const host = '192.168.1.6';
       const port = 3128;
       const auth = 'user:passord';
@@ -111,83 +114,87 @@ describe('Agent test', () => {
           auth
         }
       });
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
 
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.auth).toEqual(auth);
+      expect(result.request.options.agent.http.options.proxy.auth).toStrictEqual(auth);
     });
 
-    test('should support https request throught a http proxy', async () => {
+    it('should support https request throught a http proxy', async () => {
       const host = '192.168.1.6';
       const port = '3128';
       process.env.HTTP_PROXY = `http://${host}:${port}`;
 
       const url = 'https://axa.com/v1/cats';
       const agent = createAgent(url);
-      nock('https://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('https://axa.com/v1').post('/cats').reply(200, { message: 'test' });
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
 
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
 
-    test('should support the HTTPS_PROXY variable and tunneling https proxy to http request', async () => {
+    it('should support the HTTPS_PROXY variable and tunneling https proxy to http request', async () => {
       const host = '192.168.1.7';
       const port = '3128';
       process.env.HTTPS_PROXY = `https://${host}:${port}`;
 
       const url = 'http://axa.com/v1/cats';
       const agent = createAgent(url);
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
 
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
 
-    test('should support the HTTP_PROXY variable and tunneling https proxy to http request', async () => {
+    it('should support the HTTP_PROXY variable and tunneling https proxy to http request', async () => {
       const host = '192.168.1.8';
       const port = '3128';
       process.env.HTTP_PROXY = `https://${host}:${port}`;
 
       const url = 'http://axa.com/v1/cats';
       const agent = createAgent(url);
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent,
+          https: agent as HttpsAgent
+        },
         method: 'post',
         responseType: 'json'
       });
 
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
   });
 
@@ -199,7 +206,7 @@ describe('Agent test', () => {
       process.env.HTTPS_PROXY = '';
     });
 
-    test('should throw error for not supported protocol', async () => {
+    it('should throw error for not supported protocol', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -223,25 +230,25 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should support create an httpAgent without target', async () => {
+    it('should support create an httpAgent without target', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
 
       const url = 'http://axa.com/v1/cats';
       const agent = createHttpAgent();
-      nock('http://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('http://axa.com/v1').post('/cats').reply(200, { message: 'test' });
 
       const result = await got(url, {
-        agent,
+        agent: {
+          http: agent
+        },
         method: 'post',
         responseType: 'json'
       });
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.http.options.proxy.host).toStrictEqual(host);
     });
   });
 
@@ -256,25 +263,25 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should support create an httpsAgent without target', async () => {
+    it('should support create an httpsAgent without target', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
 
       const url = 'https://axa.com/v1/cats';
       const agent = createHttpsAgent();
-      nock('https://axa.com/v1')
-        .post('/cats')
-        .reply(200, { message: 'test' });
+      nock('https://axa.com/v1').post('/cats').reply(200, { message: 'test' });
 
       const result = await got(url, {
-        agent,
+        agent: {
+          https: agent
+        },
         method: 'post',
         responseType: 'json'
       });
-      expect(result.body).toEqual({ message: 'test' });
+      expect(result.body).toStrictEqual({ message: 'test' });
       // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      expect((result.request.options.agent as Agent).options.proxy.host).toEqual(host);
+      expect(result.request.options.agent.https.options.proxy.host).toStrictEqual(host);
     });
   });
 
@@ -289,7 +296,7 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should throw error for not supported protocol', async () => {
+    it('should throw error for not supported protocol', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -301,7 +308,7 @@ describe('Agent test', () => {
       );
     });
 
-    test('should reuse same agent', async () => {
+    it('should reuse same agent', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -310,10 +317,10 @@ describe('Agent test', () => {
       const agent1 = createForeverAgent(url);
       const agent2 = createForeverAgent(url);
 
-      expect(agent1.name).toEqual(agent2.name);
+      expect(agent1.name).toStrictEqual(agent2.name);
     });
 
-    test('should not reuse same agent with diferent options', async () => {
+    it('should not reuse same agent with diferent options', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -322,7 +329,7 @@ describe('Agent test', () => {
       const agent1 = createForeverAgent(url, { cert: 'myCert' } as NativeHttpsAgentOptions);
       const agent2 = createForeverAgent(url);
 
-      expect(agent1.name).not.toEqual(agent2.name);
+      expect(agent1.name).not.toStrictEqual(agent2.name);
     });
   });
 
@@ -337,7 +344,7 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should reuse same agent', async () => {
+    it('should reuse same agent', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -345,17 +352,17 @@ describe('Agent test', () => {
       const agent1 = createHttpForeverAgent();
       const agent2 = createHttpForeverAgent();
 
-      expect(agent1.name).toEqual(agent2.name);
+      expect(agent1.name).toStrictEqual(agent2.name);
     });
 
-    test('should not reuse same agent with diferent options', async () => {
+    it('should not reuse same agent with diferent options', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
       const agent1 = createHttpForeverAgent({ cert: 'myCert' } as NativeHttpsAgentOptions);
       const agent2 = createHttpForeverAgent();
 
-      expect(agent1.name).not.toEqual(agent2.name);
+      expect(agent1.name).not.toStrictEqual(agent2.name);
     });
   });
 
@@ -370,7 +377,7 @@ describe('Agent test', () => {
       nock.cleanAll();
     });
 
-    test('should reuse same agent', async () => {
+    it('should reuse same agent', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -378,10 +385,10 @@ describe('Agent test', () => {
       const agent1 = createHttpsForeverAgent();
       const agent2 = createHttpsForeverAgent();
 
-      expect(agent1.name).toEqual(agent2.name);
+      expect(agent1.name).toStrictEqual(agent2.name);
     });
 
-    test('should not reuse same agent with diferent options', async () => {
+    it('should not reuse same agent with diferent options', async () => {
       const host = '192.168.1.5';
       const port = '3128';
       process.env.http_proxy = `http://${host}:${port}`;
@@ -389,7 +396,7 @@ describe('Agent test', () => {
       const agent1 = createHttpsForeverAgent({ cert: 'myCert' });
       const agent2 = createHttpsForeverAgent();
 
-      expect(agent1.name).not.toEqual(agent2.name);
+      expect(agent1.name).not.toStrictEqual(agent2.name);
     });
   });
 });

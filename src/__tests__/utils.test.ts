@@ -18,7 +18,7 @@ import { requestShouldUseProxy } from '../utils';
 import { createAgent } from '../agent';
 import { NativeRequestOptions } from '../types';
 
-describe('Utils tests', () => {
+describe('utils tests', () => {
   describe('requestShouldUseProxy', () => {
     let noProxy = '';
 
@@ -31,7 +31,7 @@ describe('Utils tests', () => {
       process.env.NO_PROXY = noProxy;
     });
 
-    test('Should return false when the agent has no proxy', () => {
+    it('should return false when the agent has no proxy', () => {
       const options = {
         agent: new http.Agent()
       };
@@ -40,12 +40,12 @@ describe('Utils tests', () => {
         options as NativeRequestOptions
       )} when agent with no proxy`;
 
-      expect('is false when agent with no proxy').toEqual(actual);
+      expect('is false when agent with no proxy').toStrictEqual(actual);
     });
 
-    test('Should return true when the agent has proxy but no exceptions are found', () => {
+    it('should return true when the agent has proxy but no exceptions are found', () => {
       const options = {
-        agent: createAgent('http://example.com')
+        agent: createAgent('http://example.com', { proxy: { port: 3000, host: '127.0.0.1' } })
       };
 
       process.env.no_proxy = '';
@@ -55,10 +55,10 @@ describe('Utils tests', () => {
         options as NativeRequestOptions
       )} when agent with proxy but no exceptions`;
 
-      expect('is true when agent with proxy but no exceptions').toEqual(actual);
+      expect('is true when agent with proxy but no exceptions').toStrictEqual(actual);
     });
 
-    test('Should return the corrent result depending on the parameters', () => {
+    it('should return the correct result depending on the parameters', () => {
       const exceptions = 'discover*, *.local, test.example.com, *-whatever-*';
 
       const toTest = [
@@ -84,7 +84,7 @@ describe('Utils tests', () => {
         const url = new URL(path);
 
         const options = {
-          agent: createAgent(path),
+          agent: createAgent(path, { proxy: { port: 3000, host: '127.0.0.1' } }),
           host: url.host
         };
 
@@ -92,7 +92,7 @@ describe('Utils tests', () => {
           options as NativeRequestOptions
         )}`;
 
-        expect(expectedString).toEqual(actualString);
+        expect(expectedString).toStrictEqual(actualString);
       });
     });
   });

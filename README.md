@@ -91,3 +91,41 @@ You can read the Code of Conduct at [Code of Conduct](./CODE_OF_CONDUCT.md).
 ## Who is behind it?
 
 This project is developed by AXA Group Operations Spain S.A.
+
+# Legal Notice
+
+Copyright (c) AXA Group. All rights reserved.
+Licensed under the (MIT / Apache 2.0) License.
+
+## Third party dependencies licenses
+
+### Production
+ - [hyperid@2.0.3](https://github.com/mcollina/hyperid) - MIT
+ - [node-object-hash@2.0.0](https://github.com/SkeLLLa/node-object-hash) - MIT
+
+### Development
+ - [@commitlint/config-conventional@8.3.4](https://github.com/conventional-changelog/commitlint) - MIT
+ - [@types/jest@25.1.2](https://github.com/DefinitelyTyped/DefinitelyTyped) - MIT
+ - [@types/node@13.7.1](https://github.com/DefinitelyTyped/DefinitelyTyped) - MIT
+ - [@typescript-eslint/eslint-plugin@2.19.2](https://github.com/typescript-eslint/typescript-eslint) - MIT
+ - [@typescript-eslint/parser@2.19.2](https://github.com/typescript-eslint/typescript-eslint) - BSD-2-Clause
+ - [commitizen@4.0.3](https://github.com/commitizen/cz-cli) - MIT
+ - [commitlint@8.3.5](https://github.com/conventional-changelog/commitlint) - MIT
+ - [cz-conventional-changelog@3.1.0](https://github.com/commitizen/cz-conventional-changelog) - MIT
+ - [eslint@6.8.0](https://github.com/eslint/eslint) - MIT
+ - [eslint-config-airbnb-typescript@7.0.0](https://github.com/iamturns/eslint-config-airbnb-typescript) - MIT
+ - [eslint-config-prettier@6.10.0](https://github.com/prettier/eslint-config-prettier) - MIT
+ - [eslint-import-resolver-typescript@2.0.0](https://github.com/alexgorbatchev/eslint-import-resolver-typescript) - ISC
+ - [eslint-plugin-import@2.20.1](https://github.com/benmosher/eslint-plugin-import) - MIT
+ - [eslint-plugin-jest@23.7.0](https://github.com/jest-community/eslint-plugin-jest) - MIT
+ - [eslint-plugin-json@2.0.1](https://github.com/azeemba/eslint-plugin-json) - MIT
+ - [eslint-plugin-prettier@3.1.2](https://github.com/prettier/eslint-plugin-prettier) - MIT
+ - [got@10.5.5](https://github.com/sindresorhus/got) - MIT
+ - [husky@4.2.3](https://github.com/typicode/husky) - MIT
+ - [jest@25.1.0](https://github.com/facebook/jest) - MIT
+ - [nock@11.8.2](https://github.com/nock/nock) - MIT
+ - [prettier@1.19.1](https://github.com/prettier/prettier) - MIT
+ - [rimraf@3.0.2](https://github.com/isaacs/rimraf) - ISC
+ - [standard-version@7.1.0](https://github.com/conventional-changelog/standard-version) - ISC
+ - [ts-jest@25.2.0](https://github.com/kulshekhar/ts-jest) - MIT
+ - [typescript@3.7.5](https://github.com/Microsoft/TypeScript) - Apache-2.0
