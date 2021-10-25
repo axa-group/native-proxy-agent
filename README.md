@@ -1,3 +1,5 @@
+# DEPRECATED, USE [hpagent](https://github.com/delvedor/hpagent) INSTEAD
+
 ## Native Proxy Agent
 
 A native proxy agent that uses the native nodejs http.Agent and https.Agent to proxy the requests.
