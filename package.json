@@ -41,7 +41,7 @@
     "npm": ">=6"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/config-conventional": "^17.0.0",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
@@ -50,7 +50,7 @@
     "commitlint": "^13.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^14.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
