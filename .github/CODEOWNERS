@@ -5,4 +5,6 @@
 
 # Maintainers must validate repository configuration files
 
-/.github/   @axa-group/bauta-admins
+/.github/worflows   @axa-group/bauta-admins
+/.github/CODEOWNERS   @axa-group/bauta-admins
+
