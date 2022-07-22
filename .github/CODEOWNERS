@@ -3,6 +3,8 @@
 *   @axa-group/bauta-reviewers
 
 
-# Maintainers must validate repository configuration files
+# Admins must validate repository configuration files
 
-/.github/   @axa-group/bauta-admins
+/.github/workflows/   @axa-group/bauta-admins
+/.github/CODEOWNERS   @axa-group/bauta-admins
+
