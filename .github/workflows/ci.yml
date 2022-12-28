@@ -30,16 +30,4 @@ jobs:
       - run: npm run build --if-present
       - run: npm test
 
-  automerge:
-      needs: build
-      runs-on: ubuntu-latest
-      permissions:
-        pull-requests: write
-        contents: write
-      steps:
-        - uses: fastify/github-action-merge-dependabot@main
-          with:
-            github-token: ${{ secrets.automerge_token }}
-            target: minor
-            exclude: 'typescript'
-            use-github-auto-merge: true
+ 

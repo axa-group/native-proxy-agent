@@ -1,0 +1,22 @@
+name: CI Dependencies
+on: [pull_request]
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    permissions:      
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          target: minor
+          github-token: ${{ secrets.automerge_token }}
+          exclude: 'typescript'
+          use-github-auto-merge: true
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:          
+          target: patch
+          github-token: ${{ secrets.automerge_token }}
+          exclude: 'typescript'
+          use-github-auto-merge: true
