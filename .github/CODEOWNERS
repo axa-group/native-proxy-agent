@@ -5,6 +5,6 @@
 
 # Admins must validate repository configuration files
 
-/.github/workflows/   @axa-group/bauta-admins
+/.github/workflows/   @axa-group/bauta-maintainers
 /.github/CODEOWNERS   @axa-group/bauta-admins
 
