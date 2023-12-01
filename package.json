@@ -58,7 +58,7 @@
     "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "got": "^11.8.5",
+    "got": "^12.5.3",
     "husky": "^8.0.1",
     "jest": "^28.1.1",
     "nock": "^13.2.7",
