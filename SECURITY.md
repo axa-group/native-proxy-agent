@@ -6,14 +6,13 @@
 | ------- | ------------------ |
 | 1.x     | :white_check_mark: |
 
-Additionally, we only support the [LTS Node.js versions](https://nodejs.org/en/about/releases/).
+Additionally, we only support the latest active LTS major for this package: Node.js 24.x.
 
-We will deprecate the non-supported Node.js version following the Release process and timeline of Node.js.
+Older Node.js majors are considered unsupported.
 
-| Version | Supported           |
-| ------- | ------------------- |
-| 14.x     | :white_check_mark: |
-| 16.x     | :white_check_mark: |
+| Version | Supported          |
+| ------- | ------------------ |
+| 24.x    | :white_check_mark: |
 
 ## Reporting a Vulnerability
 

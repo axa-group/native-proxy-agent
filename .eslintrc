@@ -34,6 +34,12 @@
     "import/prefer-default-export": "off",
     "jest/consistent-test-it": 0,
     "jest/no-hooks": 0,
+    "jest/padding-around-after-each-blocks": 0,
+    "jest/padding-around-all": 0,
+    "jest/padding-around-before-each-blocks": 0,
+    "jest/padding-around-expect-groups": 0,
+    "jest/prefer-ending-with-an-expect": 0,
+    "jest/prefer-importing-jest-globals": 0,
     "jest/prefer-expect-assertions": 0,
     "no-multiple-empty-lines": [
       "error",
