@@ -1,4 +1,4 @@
-import nodeHash from 'node-object-hash';
+import { hasher as nodeHash } from 'node-object-hash';
 import { URL } from 'url';
 import { HttpAgent } from './http-agent';
 import { HttpsAgent } from './https-agent';

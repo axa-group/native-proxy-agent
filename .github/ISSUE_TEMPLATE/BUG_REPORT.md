@@ -20,7 +20,7 @@ If applicable, add screenshots to help explain your problem.
 
 - OS: [e.g. Linux, MacOSX, Windows 10]
 - @axa/native-proxy-agent version [e.g. v1.0.0]
-- Node.js version [e.g. v12.14.1]
+- Node.js version [e.g. v24.0.0]
 
 ### Additional context
 

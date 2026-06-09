@@ -12,6 +12,10 @@ A native proxy agent that uses the native nodejs `http.Agent` and `https.Agent` 
   npm install @axa/native-proxy-agent
 ```
 
+## Node.js support
+
+This package supports **Node.js 24.x only**.
+
 ## Usage
 
 ```js

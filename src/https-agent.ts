@@ -67,15 +67,17 @@ export class HttpsAgent extends https.Agent {
     msg += '\r\n';
 
     socket.write(msg);
+
+    return socket;
   }
 
   createConnection(options: NativeHttpsAgentOptions, cb: ICallback) {
     if (options.proxy && requestShouldUseProxy(options as NativeRequestOptions)) {
-      this.createConnectionHttpsAfterHttp(options, cb);
-    } else {
-      // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
-      cb(null, super.createConnection(options));
+      return this.createConnectionHttpsAfterHttp(options, cb);
     }
+
+    // @ts-ignore, because of a bug on Agent @types https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16735@types
+    return super.createConnection(options, cb);
   }
 }
 
