@@ -4,7 +4,7 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x     | :white_check_mark: |
+| 2.x     | :white_check_mark: |
 
 Additionally, we only support the latest active LTS major for this package: Node.js 24.x.
 
